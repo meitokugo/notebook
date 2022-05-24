@@ -1,0 +1,42 @@
+当客户端把请求发送到服务器的时候，请求拦截器会在其中进行请求拦截，
+然后运行封装的重复性代码，再发送给服务器。当服务器把响应发送到客户端的时候，
+响应拦截器会进行响应拦截，然后运行封装的重复性代码，再发送给客户端。
+
+请求拦截器：axios.interceptors.requset.use(function())
+
+响应拦截器：axios.interceptors.response.use(function())
+
+使用
+<script>
+  axios.defaults.baseURL = 'http://123123123.com'
+  
+  $(function(){
+  
+    axios.interceptors.request.use(function(config) {  
+  $('.loading-box').show()
+  return config
+  },function (error) {
+  return Promise.reject(error)
+  })
+  
+  $('#btnGET').on('click',function(){
+  axios.get('/api/get').then(function (res) {
+  console.log(res.data)
+  })
+  })
+  // 点击按钮，发起 POST 请求
+      $('#btnPOST').on('click', function () {
+        axios.post('/api/post', { name: 'zs' }).then(function (res) {
+          console.log(res.data)
+        })
+      })
+  $('#btnBooks').on('click', function () {
+        axios.get('/api/getbooks').then(function (res) {
+          console.log(res.data)
+        })
+      })
+    })
+
+
+  
+</script>
